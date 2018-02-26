@@ -9,7 +9,7 @@ public class Restaurant {
     private ArrayList<Food> menu;
     private ArrayList<Food> foodInventory;
     private ArrayList<Recipe> recipes;
-    private ArrayList<Equipment> equipment;
+    private ArrayList<Equipment> equipmentInventory;
     private double wealth;
     private int peakLunchHr;
     private int peakBreakfastHr;
@@ -66,8 +66,8 @@ public class Restaurant {
         return recipes;
     }
 
-    public ArrayList<Equipment> getEquipment() {
-        return equipment;
+    public ArrayList<Equipment> getEquipmentInventory() {
+        return equipmentInventory;
     }
 
     public boolean hasEquipment(String[] equipmentNames) {
@@ -101,7 +101,7 @@ public class Restaurant {
     }
 
     public Equipment getEquipmentByName(String equipmentName) {
-        for (Equipment equipment : equipment) {
+        for (Equipment equipment : equipmentInventory) {
             if (equipment.getName().equalsIgnoreCase(equipmentName)) {
                 return equipment;
             }
@@ -136,5 +136,15 @@ public class Restaurant {
                 System.out.println("Sorry, you can't make " + recipe.getCookedDish().getName());
             }
         }
+    }
+
+    public int getEquipmentUpkeepCost() {
+        int totalUpkeep = 0;
+
+        for (Equipment equipment : equipmentInventory) {
+            totalUpkeep += equipment.getDailyUpkeep();
+        }
+
+        return totalUpkeep;
     }
 }

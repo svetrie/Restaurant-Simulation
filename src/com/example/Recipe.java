@@ -2,6 +2,7 @@ package com.example;
 
 public class Recipe {
     private static final double RESALE_MULTIPLIER = 0.5;
+    private String name;
     private String[] ingredients;
     private String[] requiredEquipments;
     private Food cookedDish;
