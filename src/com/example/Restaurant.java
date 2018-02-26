@@ -15,6 +15,26 @@ public class Restaurant {
     private int peakBreakfastHr;
     private int peakDinnerHr;
 
+    public static int getClosingTime() {
+        return CLOSING_TIME;
+    }
+
+    public static int getOpeningTime() {
+        return OPENING_TIME;
+    }
+
+    public int getPeakBreakfastHr() {
+        return peakBreakfastHr;
+    }
+
+    public int getPeakLunchHr() {
+        return peakLunchHr;
+    }
+
+    public int getPeakDinnerHr() {
+        return peakDinnerHr;
+    }
+
     public double getWealth() {
         return wealth;
     }
@@ -27,12 +47,36 @@ public class Restaurant {
         return foodInventory;
     }
 
+    public boolean hasFoods(String[] foodNames) {
+        for (String foodName : foodNames) {
+            if (getFoodByName(foodName) == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void removeFoods(String[] foodNames) {
+        for (String foodName : foodNames) {
+            foodInventory.remove(getFoodByName(foodName));
+        }
+    }
+
     public ArrayList<Recipe> getRecipes() {
         return recipes;
     }
 
     public ArrayList<Equipment> getEquipment() {
         return equipment;
+    }
+
+    public boolean hasEquipment(String[] equipmentNames) {
+        for (String equipmentName : equipmentNames) {
+            if (getEquipmentByName(equipmentName) == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void addToMenu(Food food) {
@@ -77,6 +121,20 @@ public class Restaurant {
     public void printMenu() {
         for (Food food : menu) {
             System.out.println("Entree: " + food + " " + food.getBaseValue() * SALE_MULTIPLIER);
+        }
+    }
+
+    public void cookFood(Recipe recipe, int quantity) {
+        ArrayList<Food> ingredientsNeeded = new ArrayList<Food>();
+
+        for (int i = 0; i < quantity; i++) {
+
+            if (hasEquipment(recipe.getRequiredEquipments()) && hasFoods(recipe.getIngredients())) {
+                foodInventory.add(recipe.getCookedDish());
+                removeFoods(recipe.getIngredients());
+            } else {
+                System.out.println("Sorry, you can't make " + recipe.getCookedDish().getName());
+            }
         }
     }
 }
