@@ -1,0 +1,219 @@
+{
+  "marketFoods" : [
+    {
+      "name" : "onions",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "buns",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "lettuce",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "tomatoes",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "beef",
+      "baseValue" : 50,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "cheese",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "burger",
+      "baseValue" : 500,
+      "cookingTime" : 30
+    },
+    {
+      "name" : "fries",
+      "baseValue" : 200,
+      "cookingTime" : 15
+    },
+    {
+      "name" : "potatoes",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "pizza",
+      "baseValue" : 500,
+      "cookingTime" : 30
+    },
+    {
+      "name" : "dough",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "salad",
+      "baseValue" : 200,
+      "cookingTime" : 10
+    },
+    {
+      "name" : "ranch",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "salsa",
+      "baseValue" : 100,
+      "cookingTime" : 10
+    },
+    {
+      "name" : "cilantro",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "chicken",
+      "baseValue" : 50,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "beans",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "burrito",
+      "baseValue" : 500,
+      "cookingTime" : 30
+    },
+    {
+      "name" : "milk",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "strawberry",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "banana",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "milkshake",
+      "baseValue" : 200,
+      "cookingTime" : 15
+    }
+  ],
+  "marketEquipment" : [
+    {
+      "name" : "oven",
+      "baseValue" : 1000,
+      "dailyUpkeep" : 50
+    },
+    {
+      "name" : "fryer",
+      "baseValue" : 1000,
+      "dailyUpkeep" : 50
+    },
+    {
+      "name" : "grill",
+      "baseValue" : 2000,
+      "dailyUpkeep" : 75
+    },
+    {
+      "name" : "blender",
+      "baseValue" : 500,
+      "dailyUpkeep" : 25
+    }
+  ],
+  "marketRecipes" : [
+    {
+      "name" : "burger_recipe",
+      "baseValue" : 750,
+      "ingredients" : ["onions", "buns", "lettuce", "tomatoes", "beef", "cheese"],
+      "requiredEquipment" : ["grill"],
+      "cookedDish" : {
+        "name" : "burger",
+        "baseValue" : 500,
+        "cookingTime" : 30
+      }
+    },
+    {
+      "name" : "fries_recipe",
+      "baseValue" : 500,
+      "ingredients" : ["potatoes"],
+      "requiredEquipment" : ["fryer"],
+      "cookedDish" : {
+        "name" : "fries",
+        "baseValue" : 200,
+        "cookingTime" : 15
+      }
+    },
+    {
+      "name": "pizza_recipe",
+      "baseValue": 750,
+      "ingredients": [
+        "dough",
+        "tomatoes",
+        "cheese"
+      ],
+      "requiredEquipment": ["oven", "blender"],
+      "cookedDish": {
+        "name": "pizza",
+        "baseValue": 500,
+        "cookingTime": 30
+      }
+    },
+    {
+      "name" : "salad_recipe",
+      "baseValue" : 500,
+      "ingredients" : ["ranch", "lettuce"],
+      "requiredEquipment" : [],
+      "cookedDish" : {
+        "name" : "salad",
+        "baseValue" : 200,
+        "cookingTime" : 10
+      }
+    },
+    {
+      "name" : "salsa_recipe",
+      "baseValue" : 500,
+      "ingredients" : ["onions", "tomatoes", "cilantro"],
+      "requiredEquipment" : ["blender"],
+      "cookedDish" : {
+        "name" : "salsa",
+        "baseValue" : 100,
+        "cookingTime" : 10
+      }
+    },
+    {
+      "name" : "burrito_recipe",
+      "baseValue" : 750,
+      "ingredients" : ["chicken", "tomatoes", "cheese", "salsa"],
+      "requiredEquipment" : ["grill"],
+      "cookedDish" : {
+        "name" : "burrito",
+        "baseValue" : 500,
+        "cookingTime" : 30
+      }
+    },
+    {
+      "name" : "milkshake_recipe",
+      "baseValue" : 500,
+      "ingredients" : ["milk", "strawberry", "banana"],
+      "requiredEquipment" : ["blender"],
+      "cookedDish" : {
+        "name" : "milkshake",
+        "baseValue" : 200,
+        "cookingTime" : 15
+      }
+    }
+  ]
+}

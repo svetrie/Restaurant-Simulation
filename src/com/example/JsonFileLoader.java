@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class JsonFileLoader {
-    
+
     public static Restaurant getRestaurantFromJsonFile(String filename) {
         Restaurant restaurant = null;
         Gson gson = new Gson();
