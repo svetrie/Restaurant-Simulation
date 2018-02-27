@@ -47,40 +47,28 @@ public class Market {
         return totalPrice;
     }
 
+
     public void printMarketFoods() {
-        System.out.println();
+        System.out.println("The market has: ");
 
         for (int i = 0; i < marketFoods.length; i++) {
-            System.out.print(marketFoods[i].getName());
-
-            if (i < marketFoods.length - 1) {
-                System.out.print(", ");
-            }
+            System.out.println(marketFoods[i].getName());
         }
     }
 
     public void printMarketRecipes() {
-        System.out.println();
+        System.out.println("The market has: ");
 
         for (int i = 0; i < marketRecipes.length; i++) {
-            System.out.print(marketRecipes[i].getCookedDish().getName());
-
-            if (i < marketRecipes.length - 1) {
-                System.out.print(", ");
-            }
+            System.out.println(marketRecipes[i].getCookedDish().getName());
         }
     }
 
     public void printMarketEquipment() {
-
-        System.out.println();
+        System.out.println("The market has: ");
 
         for (int i = 0; i < marketEquipment.length; i++) {
             System.out.print(marketEquipment[i].getName());
-
-            if (i < marketEquipment.length - 1) {
-                System.out.print(", ");
-            }
         }
     }
 }

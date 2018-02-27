@@ -79,15 +79,21 @@ public class Restaurant {
         return true;
     }
 
-    public void addToMenu(Food food) {
-        menu.add(food);
+    public String addToMenu(String foodName) {
+        if (getFoodByName(foodName) != null) {
+            menu.add(getFoodByName(foodName));
+            return "Added " + foodName + " to menu";
+        } else {
+            return "Sorry, you can't add " + foodName + " to the menu";
+        }
     }
 
-    public void removeFromMenu(String foodName) {
+    public String removeFromMenu(String foodName) {
         if (menu.contains(getFoodByName(foodName))) {
             menu.remove(getFoodByName(foodName));
+            return "Removed " + foodName + " from menu";
         } else {
-            System.out.println(foodName + " cannot be removed from the menu");
+            return "Sorry, you can't remove " + foodName + " from the menu";
         }
     }
 
@@ -120,7 +126,31 @@ public class Restaurant {
 
     public void printMenu() {
         for (Food food : menu) {
-            System.out.println("Entree: " + food + " " + food.getBaseValue() * SALE_MULTIPLIER);
+            System.out.println("\tEntree: " + food + " " + food.getBaseValue() * SALE_MULTIPLIER);
+        }
+    }
+
+    public void printFoodInventory() {
+        System.out.println("Restaurant's food inventory contains: ");
+
+        for (Food food : foodInventory) {
+            System.out.println('\t' + food.getName());
+        }
+    }
+
+    public void printEquipmentInventory() {
+        System.out.println("Restaurant's equipment inventory contains: ");
+
+        for (Equipment equipment : equipmentInventory) {
+            System.out.println('\t' + equipment.getName());
+        }
+    }
+
+    public void printRecipes() {
+        System.out.println("Restaurant has recipes for the following dishes");
+
+        for (Recipe recipe : recipes) {
+            System.out.println('\t' + recipe.getCookedDish().getName());
         }
     }
 

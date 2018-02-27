@@ -1,27 +1,16 @@
 package com.example;
 
-public class Food {
+public class Food extends Item {
     private static final double RESALE_MULTIPLIER = 0.8;
-    private String name;
-    private double baseValue;
-    private double cookingTime;
+    private int cookingTime;
 
-
-    public String getName() {
-        return name;
-    }
-
-    public double getBaseValue() {
-        return baseValue;
-    }
-
-    public double getCookingTime() {
+    public int getCookingTime() {
         return cookingTime;
     }
 
     public void printInfo() {
-        System.out.println("Name: " + name);
+        System.out.println("Name: " + getName());
         System.out.println("Prep time: " + cookingTime);
-        System.out.println("Base Value: " + baseValue);
+        System.out.println("Base Value: " + getBaseValue());
     }
 }
