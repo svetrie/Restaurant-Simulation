@@ -96,7 +96,7 @@ public class Restaurant {
     }
 
     public String addToMenu(String foodName) {
-        if (getFoodByName(foodName) != null) {
+        if (!menu.contains(foodName) && getFoodByName(foodName) != null) {
             menu.add(foodName);
             return "Added " + foodName + " to menu";
         } else {
@@ -204,7 +204,7 @@ public class Restaurant {
         return totalUpkeep;
     }
 
-    public ArrayList<Food> getUniqueFoods() {
+    /*public ArrayList<Food> getUniqueFoods() {
         ArrayList<Food> uniqueFoods = new ArrayList<Food>();
 
         for (Food food : foodInventory) {
@@ -214,20 +214,20 @@ public class Restaurant {
         }
 
         return uniqueFoods;
-    }
+    }*/
 
-    public double getComplexity() {
+    public double getMenuComplexity() {
         double complexity = 0;
 
-        for (Food food : getUniqueFoods()) {
-            complexity += food.getCookingTime();
+        for (String foodName : menu) {
+            complexity += getFoodByName(foodName).getCookingTime();
         }
 
         return complexity;
     }
 
     public double getPopularity() {
-        return getUniqueFoods().size() + getComplexity() / getUniqueFoods().size();
+        return (menu.size() + getMenuComplexity() / menu.size()) / 100;
     }
 
     public void buyItems(ArrayList<Item> purchasedItems) {
@@ -247,6 +247,20 @@ public class Restaurant {
     public void sellItems(Item itemSold, int quantity) {
         for (int i = 0; i < quantity; i++) {
             itemInventory.remove(itemSold);
+
+            if (itemSold instanceof Food) {
+                foodInventory.remove(itemSold);
+            } else if (itemSold instanceof Recipe) {
+                recipes.remove(itemSold);
+            } else {
+                equipmentInventory.remove(itemSold);
+            }
+        }
+
+        if (itemSold instanceof Food) {
+            if (!foodInventory.contains(itemSold) && menu.contains(itemSold.getName())) {
+                menu.remove(itemSold.getName());
+            }
         }
     }
 

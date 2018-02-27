@@ -7,6 +7,8 @@ import java.util.Scanner;
 public class Simulation {
     private static final Scanner scan = new Scanner(System.in);
     private static final int MIN_IN_HOUR = 60;
+    private static final double SALE_PRICE_MULTIPLIER = 1.5;
+    private static final double PEAK_HRS_BONUS = .33;
     private static final int CLOSING_TIME = 0;
     private static final int OPENING_TIME = 6;
 
@@ -70,11 +72,38 @@ public class Simulation {
         try {
             int time = Integer.parseInt(timePassed);
             Time.passTime(time);
+            sellFood(time);
             return "The time is now " + Time.getCurrentTime();
         } catch (NumberFormatException e) {
             return "Sorry, the time you inputted is invalid";
         }
     }
+
+    public void sellFood(int timePassed) {
+        for (int i = 0; i < timePassed; i++) {
+            for (String foodName : restaurant.getMenu()) {
+               Food potentialSale = restaurant.getFoodByName(foodName);
+               attemptSale(potentialSale);
+            }
+        }
+    }
+
+    public void attemptSale(Food potentialSale) {
+        double saleProbability = restaurant.getPopularity();
+
+        if (Time.getHours() == restaurant.getPeakBreakfastHr()
+                || Time.getHours() == restaurant.getPeakLunchHr()
+                || Time.getHours() == restaurant.getPeakDinnerHr()) {
+            saleProbability += PEAK_HRS_BONUS;
+        }
+
+        if (Math.random() >= 1 - saleProbability) {
+            restaurant.sellItems(potentialSale, 1);
+            restaurant.setWealth(restaurant.getWealth() + SALE_PRICE_MULTIPLIER
+                    * potentialSale.getBaseValue());
+        }
+    }
+
 
     public void printItemInventory(String itemType) {
         if (itemType.equals(StringConstants.FOOD)) {
@@ -194,7 +223,4 @@ public class Simulation {
     public static void main(String[] args) {
 	// write your code here
     }
-
-
-
 }

@@ -11,6 +11,14 @@ public class Time {
         return hours + ":" + minutes;
     }
 
+    public static int getHours() {
+        return hours;
+    }
+
+    public static int getMinutes() {
+        return minutes;
+    }
+
     public static int getDays() {
         return days;
     }
