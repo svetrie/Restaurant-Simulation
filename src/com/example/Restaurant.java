@@ -6,7 +6,7 @@ public class Restaurant {
     private static final int CLOSING_TIME = 0;
     private static final int OPENING_TIME = 6;
     private static final double SALE_MULTIPLIER = 1.5;
-    private ArrayList<Food> menu;
+    private ArrayList<String> menu;
     private ArrayList<Food> foodInventory;
     private ArrayList<Recipe> recipes;
     private ArrayList<Equipment> equipmentInventory;
@@ -91,9 +91,13 @@ public class Restaurant {
         return true;
     }
 
+    public ArrayList<String> getMenu() {
+        return menu;
+    }
+
     public String addToMenu(String foodName) {
         if (getFoodByName(foodName) != null) {
-            menu.add(getFoodByName(foodName));
+            menu.add(foodName);
             return "Added " + foodName + " to menu";
         } else {
             return "Sorry, you can't add " + foodName + " to the menu";
@@ -101,8 +105,8 @@ public class Restaurant {
     }
 
     public String removeFromMenu(String foodName) {
-        if (menu.contains(getFoodByName(foodName))) {
-            menu.remove(getFoodByName(foodName));
+        if (menu.contains(foodName)) {
+            menu.remove(foodName);
             return "Removed " + foodName + " from menu";
         } else {
             return "Sorry, you can't remove " + foodName + " from the menu";
@@ -146,8 +150,9 @@ public class Restaurant {
     }
 
     public void printMenu() {
-        for (Food food : menu) {
-            System.out.println("\tEntree: " + food + " " + food.getBaseValue() * SALE_MULTIPLIER);
+        for (String foodName : menu) {
+            System.out.println("\tEntree: " + foodName + " "
+                    + getFoodByName(foodName).getBaseValue() * SALE_MULTIPLIER);
         }
     }
 

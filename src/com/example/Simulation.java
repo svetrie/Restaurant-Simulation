@@ -13,6 +13,14 @@ public class Simulation {
     private Restaurant restaurant;
     private Market market;
 
+    public Simulation() {
+        restaurant = JsonFileLoader.getRestaurantFromJsonFile("Restaurant.json");
+        market = JsonFileLoader.getMarketFromJsonFile("Market.json");
+
+        restaurant.initializeItemInventory();
+        market.initializeInventory();
+    }
+
     public String getUserInput() {
         System.out.println("What would you like to do?");
         return scan.nextLine();
@@ -99,7 +107,7 @@ public class Simulation {
 
         Recipe recipe = restaurant.getRecipeByName(recipeName);
 
-        if (recipe != null) {
+        if (recipe != null && restaurant.getMenu().contains(recipe.getCookedDish().getName())) {
             restaurant.cookFood(recipe, quantity);
             Time.passTime(recipe.getCookedDish().getCookingTime() * quantity);
             return "Cooked" + recipeName;

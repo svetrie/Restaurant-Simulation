@@ -1,0 +1,100 @@
+{
+  "menu" : ["fries", "salads"],
+  "foodInventory" : [
+    {
+      "name" : "lettuce",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "lettuce",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "lettuce",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "lettuce",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "ranch",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "ranch",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "ranch",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "ranch",
+      "baseValue" : 35,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "potatoes",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "potatoes",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "potatoes",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    },
+    {
+      "name" : "potatoes",
+      "baseValue" : 20,
+      "cookingTime" : 0
+    }
+  ],
+  "recipes" : [
+    {
+      "name" : "salad_recipe",
+      "baseValue" : 500,
+      "ingredients" : ["ranch", "lettuce"],
+      "requiredEquipment" : [],
+      "cookedDish" : {
+        "name" : "salad",
+        "baseValue" : 200,
+        "cookingTime" : 10
+      }
+    },
+    {
+      "name" : "fries_recipe",
+      "baseValue" : 500,
+      "ingredients" : ["potatoes"],
+      "requiredEquipment" : ["fryer"],
+      "cookedDish" : {
+        "name" : "fries",
+        "baseValue" : 200,
+        "cookingTime" : 15
+      }
+    }
+  ],
+  "equipmentInventory" : [
+    {
+      "name" : "fryer",
+      "baseValue" : 1000,
+      "dailyUpkeep" : 50
+    }
+  ],
+  "wealth" : 500,
+  "peakBreakfastHr" : 9,
+  "peakLunchHr" : 13,
+  "peakDinnerHour" : 19
+}
