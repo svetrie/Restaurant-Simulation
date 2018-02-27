@@ -5,9 +5,14 @@ public class Time {
     private static final int HOURS_IN_DAY = 24;
     private static int hours;
     private static int minutes;
+    private static int days;
 
-    public static void printTime() {
-        System.out.println(hours + ":" + minutes);
+    public static String getCurrentTime() {
+        return hours + ":" + minutes;
+    }
+
+    public static int getDays() {
+        return days;
     }
 
     public static void passTime(int minPassed) {
@@ -18,6 +23,13 @@ public class Time {
 
         if (hours >= HOURS_IN_DAY) {
             hours = hours / HOURS_IN_DAY;
+            days++;
         }
+    }
+
+    public static void initializeTime() {
+        hours = 0;
+        minutes = 0;
+        days = 0;
     }
 }

@@ -32,6 +32,7 @@ public class Market {
         return null;
     }
 
+    // might want to add to simulation class
     public double getPurchasePrice(String itemName, int quantity) {
         double totalPrice = 0;
 

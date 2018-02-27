@@ -7,7 +7,6 @@ public class Recipe {
     private String[] requiredEquipments;
     private Food cookedDish;
     private double baseValue;
-    private double timeToCook;
 
     public String[] getIngredients() {
         return ingredients;
@@ -25,13 +24,8 @@ public class Recipe {
         return baseValue;
     }
 
-    public double getTimeToCook() {
-        return timeToCook;
-    }
-
     public void printInfo() {
         System.out.println("Recipe for: " + cookedDish.getName());
-        System.out.println("Prep time: " + timeToCook);
 
         System.out.println("The ingredients are: ");
         for (int i = 0; i < ingredients.length; i++) {

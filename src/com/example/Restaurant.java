@@ -147,4 +147,31 @@ public class Restaurant {
 
         return totalUpkeep;
     }
+
+    public ArrayList<Food> getUniqueFoods() {
+        ArrayList<Food> uniqueFoods = new ArrayList<Food>();
+
+        for (Food food : foodInventory) {
+            if (!uniqueFoods.contains(food)) {
+                uniqueFoods.add(food);
+            }
+        }
+
+        return uniqueFoods;
+    }
+
+    public double getComplexity() {
+        double complexity = 0;
+
+        for (Food food : getUniqueFoods()) {
+            complexity += food.getCookingTime();
+        }
+
+        return complexity;
+    }
+
+    public double getPopularity() {
+        return getUniqueFoods().size() + getComplexity() / getUniqueFoods().size();
+    }
+
 }
