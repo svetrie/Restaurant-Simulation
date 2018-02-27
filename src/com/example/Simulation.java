@@ -1,9 +1,12 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Simulation {
     private static final Scanner scan = new Scanner(System.in);
+    private static final int MIN_IN_HOUR = 60;
     private static final int CLOSING_TIME = 0;
     private static final int OPENING_TIME = 6;
 
@@ -48,7 +51,7 @@ public class Simulation {
                 + usersNextMove[1]).equals(StringConstants.DISPLAY_MENU)) {
             restaurant.printMenu();
         } else if (usersNextMove[0].equals(StringConstants.MARKET)) {
-            // access market
+            visitMarket();
         } else {
             System.out.println("Sorry I don't understand " + userInput);
         }
@@ -78,12 +81,8 @@ public class Simulation {
     }
 
     public void printItemInfo(String itemName) {
-        if (market.getFoodByName(itemName) != null) {
-            market.getFoodByName(itemName).printInfo();
-        } else if (market.getEquipmentByName(itemName) != null) {
-            market.getEquipmentByName(itemName).printInfo();
-        } else if (market.getRecipeByName(itemName) != null) {
-            market.getRecipeByName(itemName).printInfo();
+        if (market.getItemByName(itemName) != null) {
+            market.getItemByName(itemName).printInfo();
         } else {
             System.out.println("The item you searched for does not exist");
         }
@@ -121,12 +120,14 @@ public class Simulation {
             } else if (usersNextMove.length == 3 && usersNextMove[0].equals(StringConstants.BUY)) {
                 buyFromMarket(usersNextMove[1], usersNextMove[2]);
             } else if (usersNextMove.length == 3 && usersNextMove[0].equals(StringConstants.SELL)) {
-                // call sell
+                sellToMarket(usersNextMove[1], usersNextMove[2]);
             } else {
                 System.out.println("Sorry, I don't understand " + userInput);
             }
 
         } while (!usersNextMove[0].equals(StringConstants.EXIT_MARKET));
+
+        Time.passTime(MIN_IN_HOUR);
     }
 
     public void listMarketItems(String itemType) {
@@ -150,12 +151,36 @@ public class Simulation {
             return "Sorry, the quantity you inputted is invalid";
         }
 
+        ArrayList<Item> purchase = market.getPurchasedItems(itemName, quantity);
 
-
+        if (purchase != null && purchase.get(0).getBaseValue() * quantity <= restaurant.getWealth()) {
+            restaurant.setWealth(restaurant.getWealth() - purchase.get(0).getBaseValue() * quantity);
+            restaurant.buyItems(purchase);
+            return "Purchase was successful";
+        } else {
+            return "Sorry, you can't buy " + quantity + " " + itemName;
+        }
     }
 
-    public void sellToMarket() {
+    public String sellToMarket(String itemName, String numItems) {
+        int quantity;
 
+        try {
+            quantity = Integer.parseInt(numItems);
+        } catch (NumberFormatException e) {
+            return "Sorry, the quantity you inputted is invalid";
+        }
+
+        Item itemSold = restaurant.getItemByName(itemName);
+
+        if (itemSold != null && Collections.frequency(restaurant.getItemInventory(),
+                itemSold) >= quantity) {
+            restaurant.sellItems(itemSold, quantity);
+            restaurant.setWealth(restaurant.getWealth() + itemSold.getMarketValue() * quantity);
+            return "Successfully sold items";
+        } else {
+            return "Sorry, you can't sell " + quantity + " " + itemName;
+        }
     }
 
     public static void main(String[] args) {

@@ -10,6 +10,7 @@ public class Restaurant {
     private ArrayList<Food> foodInventory;
     private ArrayList<Recipe> recipes;
     private ArrayList<Equipment> equipmentInventory;
+    private ArrayList<Item> itemInventory;
     private double wealth;
     private int peakLunchHr;
     private int peakBreakfastHr;
@@ -21,6 +22,16 @@ public class Restaurant {
 
     public static int getOpeningTime() {
         return OPENING_TIME;
+    }
+
+    public ArrayList<Item> getItemInventory() {
+        return itemInventory;
+    }
+
+    public void initializeItemInventory() {
+        itemInventory.addAll(foodInventory);
+        itemInventory.addAll(equipmentInventory);
+        itemInventory.addAll(recipes);
     }
 
     public int getPeakBreakfastHr() {
@@ -69,6 +80,7 @@ public class Restaurant {
     public ArrayList<Equipment> getEquipmentInventory() {
         return equipmentInventory;
     }
+
 
     public boolean hasEquipment(String[] equipmentNames) {
         for (String equipmentName : equipmentNames) {
@@ -119,6 +131,15 @@ public class Restaurant {
         for (Recipe recipe : recipes) {
             if (recipe.getCookedDish().getName().equalsIgnoreCase(recipeName)) {
                 return recipe;
+            }
+        }
+        return null;
+    }
+
+    public Item getItemByName(String itemName) {
+        for (Item item : itemInventory) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return item;
             }
         }
         return null;
@@ -202,6 +223,26 @@ public class Restaurant {
 
     public double getPopularity() {
         return getUniqueFoods().size() + getComplexity() / getUniqueFoods().size();
+    }
+
+    public void buyItems(ArrayList<Item> purchasedItems) {
+        for (Item item : purchasedItems) {
+            if (item instanceof Food) {
+                foodInventory.add((Food) item);
+            } else if (item instanceof Recipe) {
+                recipes.add((Recipe) item);
+            } else {
+                equipmentInventory.add((Equipment) item);
+            }
+        }
+
+        itemInventory.addAll(purchasedItems);
+    }
+
+    public void sellItems(Item itemSold, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            itemInventory.remove(itemSold);
+        }
     }
 
 }

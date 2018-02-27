@@ -8,9 +8,14 @@ public class Food extends Item {
         return cookingTime;
     }
 
+    @Override
     public void printInfo() {
-        System.out.println("Name: " + getName());
+        super.printInfo();
         System.out.println("Prep time: " + cookingTime);
-        System.out.println("Base Value: " + getBaseValue());
+    }
+
+    @Override
+    public double getMarketValue() {
+        return RESALE_MULTIPLIER * getBaseValue();
     }
 }

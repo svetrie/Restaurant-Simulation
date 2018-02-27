@@ -16,4 +16,6 @@ public abstract class Item {
         System.out.println(name);
         System.out.println(baseValue);
     }
+
+    public abstract double getMarketValue();
 }

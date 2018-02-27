@@ -1,12 +1,10 @@
 package com.example;
 
-public class Recipe {
+public class Recipe extends Item {
     private static final double RESALE_MULTIPLIER = 0.5;
-    private String name;
     private String[] ingredients;
     private String[] requiredEquipments;
     private Food cookedDish;
-    private double baseValue;
 
     public String[] getIngredients() {
         return ingredients;
@@ -20,12 +18,9 @@ public class Recipe {
         return cookedDish;
     }
 
-    public double getBaseValue() {
-        return baseValue;
-    }
-
+    @Override
     public void printInfo() {
-        System.out.println("Recipe for: " + cookedDish.getName());
+        super.printInfo();
 
         System.out.println("The ingredients are: ");
         for (int i = 0; i < ingredients.length; i++) {
@@ -45,7 +40,10 @@ public class Recipe {
                 System.out.print(", ");
             }
         }
+    }
 
-        System.out.println("Base Value: " + baseValue);
+    @Override
+    public double getMarketValue() {
+        return RESALE_MULTIPLIER * getBaseValue();
     }
 }

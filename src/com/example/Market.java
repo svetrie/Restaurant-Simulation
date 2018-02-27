@@ -1,11 +1,22 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Market {
     private Food[] marketFoods;
     private Equipment[] marketEquipment;
     private Recipe[] marketRecipes;
+    private ArrayList<Item> inventory;
 
-    public Food getFoodByName(String foodName) {
+    public void initializeInventory() {
+        inventory = new ArrayList<>();
+        inventory.addAll(Arrays.asList(marketFoods));
+        inventory.addAll(Arrays.asList(marketEquipment));
+        inventory.addAll(Arrays.asList(marketRecipes));
+    }
+
+   /* public Food getFoodByName(String foodName) {
         for (Food food : marketFoods) {
             if (food.getName().equalsIgnoreCase(foodName)) {
                 return food;
@@ -30,9 +41,43 @@ public class Market {
             }
         }
         return null;
+    } */
+
+   public ArrayList<Item> getPurchasedItems(String itemName, int quantity) {
+       ArrayList<Item> purchasedItems = new ArrayList<Item>();
+
+       Item item = getItemByName(itemName);
+
+       if (item != null) {
+
+           for (int i = 0; i < quantity; i++) {
+               purchasedItems.add(item);
+           }
+
+           return purchasedItems;
+       } else {
+           return null;
+       }
+   }
+
+    public Item getItemByName(String itemName) {
+        for (Item item : inventory) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
+        }
+        return null;
     }
 
-    // might want to add to simulation class
+    public void printMarketItems(Item[] items) {
+        System.out.println("The market has: ");
+
+        for (int i = 0; i < items.length; i++) {
+            System.out.println(items[i].getName());
+        }
+    }
+
+    /* might want to add to simulation class
     public double getPurchasePrice(String itemName, int quantity) {
         double totalPrice = 0;
 
@@ -45,30 +90,18 @@ public class Market {
         }
 
         return totalPrice;
-    }
+    }*/
 
 
     public void printMarketFoods() {
-        System.out.println("The market has: ");
-
-        for (int i = 0; i < marketFoods.length; i++) {
-            System.out.println(marketFoods[i].getName());
-        }
+        printMarketItems(marketFoods);
     }
 
     public void printMarketRecipes() {
-        System.out.println("The market has: ");
-
-        for (int i = 0; i < marketRecipes.length; i++) {
-            System.out.println(marketRecipes[i].getCookedDish().getName());
-        }
+        printMarketItems(marketRecipes);
     }
 
     public void printMarketEquipment() {
-        System.out.println("The market has: ");
-
-        for (int i = 0; i < marketEquipment.length; i++) {
-            System.out.print(marketEquipment[i].getName());
-        }
+        printMarketItems(marketEquipment);
     }
 }
