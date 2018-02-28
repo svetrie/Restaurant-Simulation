@@ -9,8 +9,8 @@ public class Simulation {
     private static final int MIN_IN_HOUR = 60;
     private static final double SALE_PRICE_MULTIPLIER = 1.5;
     private static final double PEAK_HRS_BONUS = .33;
-    private static final int CLOSING_TIME = 0;
-    private static final int OPENING_TIME = 6;
+    //private static final int CLOSING_TIME = 0;
+    //private static final int OPENING_TIME = 6;
 
     private Restaurant restaurant;
     private Market market;
@@ -19,8 +19,13 @@ public class Simulation {
         restaurant = JsonFileLoader.getRestaurantFromJsonFile("Restaurant.json");
         market = JsonFileLoader.getMarketFromJsonFile("Market.json");
 
+       /* if (restaurant.getFoodInventory() == null) {
+            System.out.println("Not parsing properly");
+        } */
+
         restaurant.initializeItemInventory();
         market.initializeInventory();
+        Time.initializeTime();
     }
 
     public String getUserInput() {
@@ -65,30 +70,59 @@ public class Simulation {
         } else {
             System.out.println("Sorry I don't understand " + userInput);
         }
-
     }
 
     public String passTime(String timePassed) {
+        int time;
+
         try {
-            int time = Integer.parseInt(timePassed);
-            Time.passTime(time);
-            sellFood(time);
-            return "The time is now " + Time.getCurrentTime();
+            time = Integer.parseInt(timePassed);
+            if (time <= 0) {
+                return "Sorry, the time you inputted is invalid";
+            }
         } catch (NumberFormatException e) {
             return "Sorry, the time you inputted is invalid";
         }
+
+        for (int i = 0; i < time; i++) {
+            Time.passTime(1);
+
+            if (Time.getHours() >= Restaurant.getOpeningTime()) {
+                sellFood();
+            }
+
+            if (Time.getHours() == 0 && Time.getMinutes() == 0) {
+                restaurant.setWealth(restaurant.getWealth() - restaurant.getEquipmentUpkeepCost());
+            }
+        }
+
+        return "The time is now " + Time.getCurrentTime();
     }
 
-    public void sellFood(int timePassed) {
-        for (int i = 0; i < timePassed; i++) {
-            for (String foodName : restaurant.getMenu()) {
-               Food potentialSale = restaurant.getFoodByName(foodName);
-               attemptSale(potentialSale);
+    public void sellFood() {
+        for (String foodName : restaurant.getMenu()) {
+            //attemptSale(restaurant.getFoodByName(foodName));
+            Food potentialSale = restaurant.getFoodByName(foodName);
+            double saleProbability = restaurant.getPopularity();
+
+            if (Time.getHours() == restaurant.getPeakBreakfastHr()
+                    || Time.getHours() == restaurant.getPeakLunchHr()
+                    || Time.getHours() == restaurant.getPeakDinnerHr()) {
+                saleProbability += PEAK_HRS_BONUS;
+            }
+
+            if (Math.random() >= 1 - saleProbability) {
+                restaurant.sellItems(potentialSale, 1);
+                restaurant.setWealth(restaurant.getWealth() + SALE_PRICE_MULTIPLIER
+                        * potentialSale.getBaseValue());
+
+                System.out.println("Sold " + potentialSale.getName() + " for "
+                        + SALE_PRICE_MULTIPLIER + potentialSale.getBaseValue());
             }
         }
     }
 
-    public void attemptSale(Food potentialSale) {
+   /* public void attemptSale(Food potentialSale) {
         double saleProbability = restaurant.getPopularity();
 
         if (Time.getHours() == restaurant.getPeakBreakfastHr()
@@ -101,9 +135,11 @@ public class Simulation {
             restaurant.sellItems(potentialSale, 1);
             restaurant.setWealth(restaurant.getWealth() + SALE_PRICE_MULTIPLIER
                     * potentialSale.getBaseValue());
-        }
-    }
 
+            System.out.println("Sold " + potentialSale.getName() + " for "
+                    + SALE_PRICE_MULTIPLIER + potentialSale.getBaseValue());
+        }
+    }*/
 
     public void printItemInventory(String itemType) {
         if (itemType.equals(StringConstants.FOOD)) {
@@ -220,7 +256,4 @@ public class Simulation {
         }
     }
 
-    public static void main(String[] args) {
-	// write your code here
-    }
 }

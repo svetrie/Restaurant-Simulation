@@ -29,7 +29,7 @@ public class Restaurant {
     }
 
     public void initializeItemInventory() {
-        itemInventory.addAll(foodInventory);
+        itemInventory = new ArrayList<Item>(foodInventory);
         itemInventory.addAll(equipmentInventory);
         itemInventory.addAll(recipes);
     }

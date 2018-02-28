@@ -2,9 +2,21 @@ package com.example;
 
 public class Recipe extends Item {
     private static final double RESALE_MULTIPLIER = 0.5;
+    //private String name;
+   // private double baseValue;
     private String[] ingredients;
     private String[] requiredEquipments;
     private Food cookedDish;
+
+ /*   @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public double getBaseValue() {
+        return baseValue;
+    } */
 
     public String[] getIngredients() {
         return ingredients;
@@ -20,6 +32,9 @@ public class Recipe extends Item {
 
     @Override
     public void printInfo() {
+       // System.out.println("Name: " + name);
+       // System.out.println("Base Value: " + baseValue);
+
         super.printInfo();
 
         System.out.println("The ingredients are: ");
