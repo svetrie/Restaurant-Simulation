@@ -17,12 +17,6 @@ public class Simulation {
         restaurant = JsonFileLoader.getRestaurantFromJsonFile("Restaurant.json");
         market = JsonFileLoader.getMarketFromJsonFile("Market.json");
 
-        for (Recipe recipe : restaurant.getRecipes()) {
-            if (recipe.getRequiredEquipments() == null) {
-               System.out.println(recipe.getName() + " not parsing properly");
-            }
-        }
-
         restaurant.initializeItemInventory();
         market.initializeInventory();
         Time.initializeTime();
@@ -39,6 +33,14 @@ public class Simulation {
         }
 
         System.out.println("Thanks for playing!");
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public Market getMarket() {
+        return market;
     }
 
     public String getUserInput() {
@@ -167,7 +169,6 @@ public class Simulation {
 
         if (recipe != null) {
             restaurant.cookFood(recipe, quantity);
-            System.out.println(Integer.toString(recipe.getCookedDish().getCookingTime() * quantity));
             passTime(Integer.toString(recipe.getCookedDish().getCookingTime() * quantity));
             return "Cooked " + recipe.getCookedDish().getName();
         } else {
@@ -198,7 +199,6 @@ public class Simulation {
         } while (!usersNextMove[0].equals(StringConstants.EXIT_MARKET));
 
         System.out.println("You're back at the restaurant");
-        System.out.println(Integer.toString(MIN_IN_HOUR));
         passTime(Integer.toString(MIN_IN_HOUR));
     }
 
