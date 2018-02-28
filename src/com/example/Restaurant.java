@@ -83,9 +83,6 @@ public class Restaurant {
 
 
     public boolean hasEquipment(String[] equipmentNames) {
-        if (equipmentNames == null)
-            System.out.println("da fuq");
-
         for (String equipmentName : equipmentNames) {
             if (getEquipmentByName(equipmentName) == null) {
                 return false;
@@ -211,18 +208,6 @@ public class Restaurant {
         return totalUpkeep;
     }
 
-    /*public ArrayList<Food> getUniqueFoods() {
-        ArrayList<Food> uniqueFoods = new ArrayList<Food>();
-
-        for (Food food : foodInventory) {
-            if (!uniqueFoods.contains(food)) {
-                uniqueFoods.add(food);
-            }
-        }
-
-        return uniqueFoods;
-    }*/
-
     public double getMenuComplexity() {
         double complexity = 0;
 
@@ -237,10 +222,6 @@ public class Restaurant {
     }
 
     public double getPopularity() {
-        /*if (menu == null) {
-            System.out.println("Menu is null");
-        }*/
-
         return (menu.size() + getMenuComplexity() / menu.size()) / 100;
     }
 

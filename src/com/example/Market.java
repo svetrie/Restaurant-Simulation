@@ -16,33 +16,6 @@ public class Market {
         inventory.addAll(Arrays.asList(marketRecipes));
     }
 
-   /* public Food getFoodByName(String foodName) {
-        for (Food food : marketFoods) {
-            if (food.getName().equalsIgnoreCase(foodName)) {
-                return food;
-            }
-        }
-        return null;
-    }
-
-    public Equipment getEquipmentByName(String equipmentName) {
-        for (Equipment equipment : marketEquipment) {
-            if (equipment.getName().equalsIgnoreCase(equipmentName)) {
-                return equipment;
-            }
-        }
-        return null;
-    }
-
-    public Recipe getRecipeByName(String recipeName) {
-        for (Recipe recipe : marketRecipes) {
-            if (recipe.getCookedDish().getName().equalsIgnoreCase(recipeName)) {
-                return recipe;
-            }
-        }
-        return null;
-    } */
-
    public ArrayList<Item> getPurchasedItems(String itemName, int quantity) {
        ArrayList<Item> purchasedItems = new ArrayList<Item>();
 
@@ -76,22 +49,6 @@ public class Market {
             System.out.println(items[i].getName());
         }
     }
-
-    /* might want to add to simulation class
-    public double getPurchasePrice(String itemName, int quantity) {
-        double totalPrice = 0;
-
-        if (getFoodByName(itemName) != null) {
-            totalPrice = getFoodByName(itemName).getBaseValue() * quantity;
-        } else if (getEquipmentByName(itemName) != null) {
-            totalPrice = getEquipmentByName(itemName).getBaseValue() * quantity;
-        } else if (getRecipeByName(itemName) != null) {
-            totalPrice = getRecipeByName(itemName).getBaseValue() * quantity;
-        }
-
-        return totalPrice;
-    }*/
-
 
     public void printMarketFoods() {
         printMarketItems(marketFoods);
