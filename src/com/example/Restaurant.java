@@ -58,6 +58,12 @@ public class Restaurant {
         return foodInventory;
     }
 
+    /**
+     * Returns true if food inventory contains the necessary ingredients
+     *
+     * @param foodNames name of ingredients used in a recipe
+     * @return true or false
+     */
     public boolean hasFoods(String[] foodNames) {
         for (String foodName : foodNames) {
             if (getFoodByName(foodName) == null) {
@@ -66,6 +72,7 @@ public class Restaurant {
         }
         return true;
     }
+
 
     public void removeFoods(String[] foodNames) {
         for (String foodName : foodNames) {
@@ -81,7 +88,12 @@ public class Restaurant {
         return equipmentInventory;
     }
 
-
+    /**
+     * Return true if equipment inventory has specfied equipment
+     *
+     * @param equipmentNames name of equipments
+     * @return a boolean
+     */
     public boolean hasEquipment(String[] equipmentNames) {
         for (String equipmentName : equipmentNames) {
             if (getEquipmentByName(equipmentName) == null) {
@@ -95,6 +107,13 @@ public class Restaurant {
         return menu;
     }
 
+    /**
+     * Tries to add food to menu if food exists in food inventory
+     * and isn't already on the menu
+     *
+     * @param foodName name of food to be added to menu
+     * @return String that lets user know if food was added
+     */
     public String addToMenu(String foodName) {
         if (!menu.contains(foodName) && getFoodByName(foodName) != null) {
             menu.add(foodName);
@@ -104,6 +123,12 @@ public class Restaurant {
         }
     }
 
+    /**
+     * Tries to remove food if it is on the menu
+     *
+     * @param foodName name of food to be removed from menu
+     * @return String that lets user know if food was removed
+     */
     public String removeFromMenu(String foodName) {
         if (menu.contains(foodName)) {
             menu.remove(foodName);
@@ -184,6 +209,13 @@ public class Restaurant {
         }
     }
 
+    /**
+     * Tries to cook recipe for specified quantity if the restaurant contains the
+     * needed ingredients and equipment
+     *
+     * @param recipe is the recipe that the user wants to cook
+     * @param quantity number of times user wants to cook this recipe
+     */
     public void cookFood(Recipe recipe, int quantity) {
         ArrayList<Food> ingredientsNeeded = new ArrayList<Food>();
 
@@ -198,6 +230,11 @@ public class Restaurant {
         }
     }
 
+    /**
+     * Calculates total cost of equipment upkeep
+     *
+     * @return cost of equipment upkeep
+     */
     public int getEquipmentUpkeepCost() {
         int totalUpkeep = 0;
 
@@ -208,23 +245,36 @@ public class Restaurant {
         return totalUpkeep;
     }
 
+    /**
+     * Calculates complexity of menu by using the cooking times
+     * of foods on the menu
+     *
+     * @return double that represents complexity of menu
+     */
     public double getMenuComplexity() {
         double complexity = 0;
 
         for (String foodName : menu) {
-            if (getFoodByName(foodName) == null) {
-                System.out.println("food DNE");
-            }
             complexity += getFoodByName(foodName).getCookingTime();
         }
 
         return complexity;
     }
 
+    /**
+     * Calculates popularity based on menu complexity and menu size
+     *
+     * @return double that represent the popularity of menu
+     */
     public double getPopularity() {
         return (menu.size() + getMenuComplexity() / menu.size()) / 100;
     }
 
+    /**
+     * Sorts items into proper inventory based on type
+     *
+     * @param purchasedItems items that were bought
+     */
     public void buyItems(ArrayList<Item> purchasedItems) {
         for (Item item : purchasedItems) {
             if (item instanceof Food) {
@@ -239,6 +289,12 @@ public class Restaurant {
         itemInventory.addAll(purchasedItems);
     }
 
+    /**
+     * Removes a quantity of items from the correct inventory
+     *
+     * @param itemSold type of item sold
+     * @param quantity number of items sold
+     */
     public void sellItems(Item itemSold, int quantity) {
         for (int i = 0; i < quantity; i++) {
             itemInventory.remove(itemSold);

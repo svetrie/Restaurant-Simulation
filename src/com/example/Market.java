@@ -16,6 +16,14 @@ public class Market {
         inventory.addAll(Arrays.asList(marketRecipes));
     }
 
+    /**
+     * Searches through market's item inventory for item and returns
+     * the quantity specfied
+     *
+     * @param itemName name of the items user is searching for
+     * @param quantity number of items user wants
+     * @return ArrayList of items
+     */
    public ArrayList<Item> getPurchasedItems(String itemName, int quantity) {
        ArrayList<Item> purchasedItems = new ArrayList<Item>();
 
@@ -33,6 +41,12 @@ public class Market {
        }
    }
 
+    /**
+     * Searches through market's item inevntory for a particular item
+     *
+     * @param itemName name of item user is searching for
+     * @return Item object
+     */
     public Item getItemByName(String itemName) {
         for (Item item : inventory) {
             if (item.getName().equalsIgnoreCase(itemName)) {
