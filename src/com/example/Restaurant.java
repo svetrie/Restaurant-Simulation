@@ -83,6 +83,9 @@ public class Restaurant {
 
 
     public boolean hasEquipment(String[] equipmentNames) {
+        if (equipmentNames == null)
+            System.out.println("da fuq");
+
         for (String equipmentName : equipmentNames) {
             if (getEquipmentByName(equipmentName) == null) {
                 return false;
@@ -133,7 +136,7 @@ public class Restaurant {
 
     public Recipe getRecipeByName(String recipeName) {
         for (Recipe recipe : recipes) {
-            if (recipe.getCookedDish().getName().equalsIgnoreCase(recipeName)) {
+            if (recipe.getName().equalsIgnoreCase(recipeName)) {
                 return recipe;
             }
         }
@@ -150,6 +153,10 @@ public class Restaurant {
     }
 
     public void printMenu() {
+        if (menu.size() == 0 ) {
+            System.out.println("menu doesn't contain anything");
+        }
+
         for (String foodName : menu) {
             System.out.println("\tEntree: " + foodName + " "
                     + getFoodByName(foodName).getBaseValue() * SALE_MULTIPLIER);
@@ -220,6 +227,9 @@ public class Restaurant {
         double complexity = 0;
 
         for (String foodName : menu) {
+            if (getFoodByName(foodName) == null) {
+                System.out.println("food DNE");
+            }
             complexity += getFoodByName(foodName).getCookingTime();
         }
 
@@ -227,6 +237,10 @@ public class Restaurant {
     }
 
     public double getPopularity() {
+        /*if (menu == null) {
+            System.out.println("Menu is null");
+        }*/
+
         return (menu.size() + getMenuComplexity() / menu.size()) / 100;
     }
 
@@ -258,7 +272,7 @@ public class Restaurant {
         }
 
         if (itemSold instanceof Food) {
-            if (!foodInventory.contains(itemSold) && menu.contains(itemSold.getName())) {
+            if (getFoodByName(itemSold.getName()) == null && menu.contains(itemSold.getName())) {
                 menu.remove(itemSold.getName());
             }
         }

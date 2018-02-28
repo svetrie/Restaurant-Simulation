@@ -3,12 +3,25 @@ package com.example;
 public class Time {
     private static final int MIN_IN_HOUR = 60;
     private static final int HOURS_IN_DAY = 24;
+    private static final int DOUBLE_DIGITS = 10;
     private static int hours;
     private static int minutes;
     private static int days;
 
     public static String getCurrentTime() {
-        return hours + ":" + minutes;
+        String hoursAsString = Integer.toString(hours);
+        String minutesAsString = Integer.toString(minutes);
+
+        if (hours < DOUBLE_DIGITS) {
+            hoursAsString = "0" + hoursAsString;
+        }
+
+        if (minutes < DOUBLE_DIGITS) {
+            minutesAsString = "0" + minutesAsString;
+        }
+
+
+        return hoursAsString + ":" + minutesAsString;
     }
 
     public static int getHours() {
@@ -24,13 +37,15 @@ public class Time {
     }
 
     public static void passTime(int minPassed) {
-        if (minPassed > MIN_IN_HOUR) {
-            hours += minPassed / MIN_IN_HOUR;
-            minutes = minPassed % MIN_IN_HOUR;
+        minutes += minPassed;
+
+        if (minutes >= MIN_IN_HOUR) {
+            hours += minutes / MIN_IN_HOUR;
+            minutes = minutes % MIN_IN_HOUR;
         }
 
         if (hours >= HOURS_IN_DAY) {
-            hours = hours / HOURS_IN_DAY;
+            hours = hours % HOURS_IN_DAY;
             days++;
         }
     }

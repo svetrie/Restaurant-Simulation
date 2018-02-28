@@ -5,7 +5,7 @@ public class Recipe extends Item {
     //private String name;
    // private double baseValue;
     private String[] ingredients;
-    private String[] requiredEquipments;
+    private String[] requiredEquipment;
     private Food cookedDish;
 
  /*   @Override
@@ -23,7 +23,7 @@ public class Recipe extends Item {
     }
 
     public String[] getRequiredEquipments() {
-        return requiredEquipments;
+        return requiredEquipment;
     }
 
     public Food getCookedDish() {
@@ -48,10 +48,10 @@ public class Recipe extends Item {
         }
 
         System.out.println("Equipment needed: ");
-        for (int i = 0; i < requiredEquipments.length; i++) {
-            System.out.print(requiredEquipments[i]);
+        for (int i = 0; i < requiredEquipment.length; i++) {
+            System.out.print(requiredEquipment[i]);
 
-            if (i < requiredEquipments.length - 1) {
+            if (i < requiredEquipment.length - 1) {
                 System.out.print(", ");
             }
         }

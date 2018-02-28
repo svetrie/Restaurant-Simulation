@@ -1,5 +1,5 @@
 {
-  "menu" : ["fries", "salads"],
+  "menu" : ["fries", "salad"],
   "foodInventory" : [
     {
       "name" : "lettuce",
@@ -12,24 +12,14 @@
       "cookingTime" : 0
     },
     {
-      "name" : "lettuce",
-      "baseValue" : 20,
-      "cookingTime" : 0
+      "name" : "salad",
+      "baseValue" : 200,
+      "cookingTime" : 10
     },
     {
-      "name" : "lettuce",
-      "baseValue" : 20,
-      "cookingTime" : 0
-    },
-    {
-      "name" : "ranch",
-      "baseValue" : 35,
-      "cookingTime" : 0
-    },
-    {
-      "name" : "ranch",
-      "baseValue" : 35,
-      "cookingTime" : 0
+      "name" : "salad",
+      "baseValue" : 200,
+      "cookingTime" : 10
     },
     {
       "name" : "ranch",
@@ -52,14 +42,14 @@
       "cookingTime" : 0
     },
     {
-      "name" : "potatoes",
-      "baseValue" : 20,
-      "cookingTime" : 0
+      "name" : "fries",
+      "baseValue" : 200,
+      "cookingTime" : 15
     },
     {
-      "name" : "potatoes",
-      "baseValue" : 20,
-      "cookingTime" : 0
+      "name" : "fries",
+      "baseValue" : 200,
+      "cookingTime" : 15
     }
   ],
   "recipes" : [

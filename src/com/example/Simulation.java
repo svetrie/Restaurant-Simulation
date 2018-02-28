@@ -9,8 +9,6 @@ public class Simulation {
     private static final int MIN_IN_HOUR = 60;
     private static final double SALE_PRICE_MULTIPLIER = 1.5;
     private static final double PEAK_HRS_BONUS = .33;
-    //private static final int CLOSING_TIME = 0;
-    //private static final int OPENING_TIME = 6;
 
     private Restaurant restaurant;
     private Market market;
@@ -19,13 +17,28 @@ public class Simulation {
         restaurant = JsonFileLoader.getRestaurantFromJsonFile("Restaurant.json");
         market = JsonFileLoader.getMarketFromJsonFile("Market.json");
 
-       /* if (restaurant.getFoodInventory() == null) {
-            System.out.println("Not parsing properly");
-        } */
+        for (Recipe recipe : restaurant.getRecipes()) {
+            if (recipe.getRequiredEquipments() == null) {
+               System.out.println(recipe.getName() + " not parsing properly");
+            }
+        }
 
         restaurant.initializeItemInventory();
         market.initializeInventory();
         Time.initializeTime();
+    }
+
+    public void runSimulation() {
+        String userInput = "";
+
+        System.out.println("Welcome to the Restaurant Simulation");
+
+        while (!userInput.equalsIgnoreCase(StringConstants.QUIT_SIMULATION)) {
+            userInput = getUserInput();
+            usersNextMove(userInput);
+        }
+
+        System.out.println("Thanks for playing!");
     }
 
     public String getUserInput() {
@@ -55,7 +68,7 @@ public class Simulation {
         } else if (usersNextMove.length == 2 && usersNextMove[0].equals(StringConstants.ITEM_INFO)) {
             printItemInfo(usersNextMove[1]);
         } else if (usersNextMove.length == 3 && usersNextMove[0].equals(StringConstants.COOK_FOOD)) {
-            cookValidFood(usersNextMove[1], usersNextMove[2]);
+            System.out.println(cookValidFood(usersNextMove[1], usersNextMove[2]));
         } else if (usersNextMove.length == 3 && (usersNextMove[0] + usersNextMove[1])
                 .equals(StringConstants.ADD_TO_MENU)) {
             System.out.println(restaurant.addToMenu(usersNextMove[2]));
@@ -100,9 +113,8 @@ public class Simulation {
     }
 
     public void sellFood() {
-        for (String foodName : restaurant.getMenu()) {
-            //attemptSale(restaurant.getFoodByName(foodName));
-            Food potentialSale = restaurant.getFoodByName(foodName);
+        for (int i = 0; i < restaurant.getMenu().size(); i++) {
+            Food potentialSale = restaurant.getFoodByName(restaurant.getMenu().get(i));
             double saleProbability = restaurant.getPopularity();
 
             if (Time.getHours() == restaurant.getPeakBreakfastHr()
@@ -117,29 +129,10 @@ public class Simulation {
                         * potentialSale.getBaseValue());
 
                 System.out.println("Sold " + potentialSale.getName() + " for "
-                        + SALE_PRICE_MULTIPLIER + potentialSale.getBaseValue());
+                        + (SALE_PRICE_MULTIPLIER * potentialSale.getBaseValue()));
             }
         }
     }
-
-   /* public void attemptSale(Food potentialSale) {
-        double saleProbability = restaurant.getPopularity();
-
-        if (Time.getHours() == restaurant.getPeakBreakfastHr()
-                || Time.getHours() == restaurant.getPeakLunchHr()
-                || Time.getHours() == restaurant.getPeakDinnerHr()) {
-            saleProbability += PEAK_HRS_BONUS;
-        }
-
-        if (Math.random() >= 1 - saleProbability) {
-            restaurant.sellItems(potentialSale, 1);
-            restaurant.setWealth(restaurant.getWealth() + SALE_PRICE_MULTIPLIER
-                    * potentialSale.getBaseValue());
-
-            System.out.println("Sold " + potentialSale.getName() + " for "
-                    + SALE_PRICE_MULTIPLIER + potentialSale.getBaseValue());
-        }
-    }*/
 
     public void printItemInventory(String itemType) {
         if (itemType.equals(StringConstants.FOOD)) {
@@ -172,17 +165,19 @@ public class Simulation {
 
         Recipe recipe = restaurant.getRecipeByName(recipeName);
 
-        if (recipe != null && restaurant.getMenu().contains(recipe.getCookedDish().getName())) {
+        if (recipe != null) {
             restaurant.cookFood(recipe, quantity);
-            Time.passTime(recipe.getCookedDish().getCookingTime() * quantity);
-            return "Cooked" + recipeName;
+            System.out.println(Integer.toString(recipe.getCookedDish().getCookingTime() * quantity));
+            passTime(Integer.toString(recipe.getCookedDish().getCookingTime() * quantity));
+            return "Cooked " + recipe.getCookedDish().getName();
         } else {
             return "Sorry, you can't cook " + recipeName;
         }
     }
 
     public void visitMarket() {
-       String[] usersNextMove;
+        System.out.println("You're at the market");
+        String[] usersNextMove;
 
         do {
             String userInput  = getUserInput();
@@ -191,16 +186,20 @@ public class Simulation {
             if (usersNextMove.length == 2 && usersNextMove[0].equals(StringConstants.DISPLAY_ITEMS)) {
                 listMarketItems(usersNextMove[1]);
             } else if (usersNextMove.length == 3 && usersNextMove[0].equals(StringConstants.BUY)) {
-                buyFromMarket(usersNextMove[1], usersNextMove[2]);
+                System.out.println(buyFromMarket(usersNextMove[1], usersNextMove[2]));
             } else if (usersNextMove.length == 3 && usersNextMove[0].equals(StringConstants.SELL)) {
-                sellToMarket(usersNextMove[1], usersNextMove[2]);
+                System.out.println(sellToMarket(usersNextMove[1], usersNextMove[2]));
+            } else if (usersNextMove[0].equals(StringConstants.EXIT_MARKET)) {
+                continue;
             } else {
                 System.out.println("Sorry, I don't understand " + userInput);
             }
 
         } while (!usersNextMove[0].equals(StringConstants.EXIT_MARKET));
 
-        Time.passTime(MIN_IN_HOUR);
+        System.out.println("You're back at the restaurant");
+        System.out.println(Integer.toString(MIN_IN_HOUR));
+        passTime(Integer.toString(MIN_IN_HOUR));
     }
 
     public void listMarketItems(String itemType) {

@@ -20,4 +20,6 @@ public class StringConstants {
     public static final String DISPLAY_ITEMS = "list";
     public static final String BUY = "buy";
     public static final String SELL = "sell";
+
+    public static final String QUIT_SIMULATION = "quit";
 }
